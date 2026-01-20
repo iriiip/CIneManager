@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('synopsis');
             $table->integer('duration');
             $table->integer('age');
+            $table->float('price');
             $table->foreignId('genre_id')->constrained('genres')->onDelete('restrict');
             $table->timestamps();
         });
