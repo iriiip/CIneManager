@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        table {
+        td {
             border: 1px solid black;
         }
     </style>
@@ -31,8 +31,8 @@
         </tr>
         @endforeach
     </table>
-    @if (session('success'))
-        {{ session('success') }}
+    @if (session('info'))
+        {{ session('info') }}
     @endif
 </body>
 

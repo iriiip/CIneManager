@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MovieController;
 
 Route::get('/', function () {
     return view('cinema');
@@ -11,7 +12,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('genres', GenreController::class);
 
-    Route::get('movies', 'MovieController@moviesCrud')->name('movies');
+    Route::resource('movies', MovieController::class);
 });
 
 require __DIR__ . '/auth.php';

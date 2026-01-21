@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Genre;
+use App\Models\Movie;
 
 class GenreController extends Controller
 {
@@ -31,7 +32,7 @@ class GenreController extends Controller
 
         Genre::create($request->all());
 
-        return redirect(route('genres.index'))->with('success', 'Género creado');
+        return redirect(route('genres.index'))->with('info', 'Género creado');
     }
 
     // Edit 
@@ -53,7 +54,7 @@ class GenreController extends Controller
 
         $genre->update($request->all());
 
-        return redirect(route('genres.index'))->with('success', 'Género actualizado');
+        return redirect(route('genres.index'))->with('info', 'Género actualizado');
     }
 
     // Destroy 
@@ -61,8 +62,12 @@ class GenreController extends Controller
     {
         $genre = Genre::find($id);
 
-        $genre->delete();
+        $movies = Movie::where('genre_id', $id)->get();
 
-        return redirect(route('genres.index'))->with('success', 'Género eliminado');
+        if (!sizeof($movies)) {
+            $genre->delete();
+            return redirect(route('genres.index'))->with('info', 'Género eliminado');
+        }
+        return redirect(route('genres.index'))->with('info', 'No se puede eliminar un género asignado a alguna película');
     }
 }
