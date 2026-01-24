@@ -16,8 +16,7 @@ class GenreSeeder extends Seeder
     public function run()
     {
         $nombres = [
-            'Acción', 'Ciencia Ficción', 'Drama', 'Comedia', 'Terror', 
-            'Animación', 'Aventura', 'Romance', 'Crimen', 'Fantasía'
+            'Acción', 'Ciencia Ficción', 'Drama', 'Comedia', 'Fantasía'
         ];
 
         foreach ($nombres as $nombre) {

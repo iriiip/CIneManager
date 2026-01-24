@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Promotion;
 
 class CinemaController extends Controller
 {
     public function index(Request $request)
     {
+        // Movies
         $query = Movie::with('genre');
 
         if ($request->has('search')) {
@@ -29,6 +31,9 @@ class CinemaController extends Controller
 
         $movies = $query->get();
 
-        return view('cinema', compact('movies'));
+        // Promotions
+        $promotions = Promotion::all();
+
+        return view('cinema', compact('movies', 'promotions'));
     }
 }

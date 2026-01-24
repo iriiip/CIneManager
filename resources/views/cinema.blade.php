@@ -13,9 +13,25 @@
 </head>
 
 <body>
+    <h1>Admin</h1>
     <a href="{{ route('genres.index') }}">Generos</a>
     <a href="{{ route('movies.index') }}">Películas</a>
+    <a href="{{ route('promotions.index') }}">Promociones</a>
 
+    <h1>Promociones</h1>
+    <table>
+        @foreach($promotions as $promo)
+        @if($promo->is_active)
+        <tr>
+            <td>{{ $promo->title }}</td>
+            <td>{{ $promo->start_date }}</td>
+            <td>{{ $promo->end_date }}</td>
+        </tr>
+        @endif
+        @endforeach
+    </table>
+
+    <h1>Películas</h1>
     <form action="{{ route('cinema') }}" method="GET">
         <input type="text" name="search" placeholder="Buscar (título o género)" value="{{ request('search') }}" required>
         <a href="{{ route('cinema') }}">Borrar filtros</a>
