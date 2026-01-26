@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Movie;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class MovieSeeder extends Seeder
 {
@@ -54,21 +57,30 @@ class MovieSeeder extends Seeder
             ['title' => 'La Historia Interminable', 'synopsis' => 'Un niño con problemas se sumerge en un maravilloso mundo de fantasía a través de las páginas de un libro misterioso.', 'duration' => 102, 'age' => 0, 'genre' => 'Fantasía'],
         ];
 
-        foreach ($moviesData as $movie) {
-            $genreName = $movie['genre'];
-            
+        foreach ($moviesData as $data) {
+            $genreName = $data['genre'];
+
             // Verificamos que el género exista en el mapa antes de insertar
             if (isset($genres[$genreName])) {
-                DB::table('movies')->insert([
-                    'title' => $movie['title'],
-                    'synopsis' => $movie['synopsis'],
-                    'duration' => $movie['duration'],
-                    'age' => $movie['age'],
+                $movie = Movie::create([
+                    'title' => $data['title'],
+                    'synopsis' => $data['synopsis'],
+                    'duration' => $data['duration'],
+                    'age' => $data['age'],
                     'price' => rand(5, 12), // Precio aleatorio
                     'genre_id' => $genres[$genreName],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
+            }
+
+            $img = Str::slug($data['title']) . '.jpg';
+            $pathToFile = public_path('img/' . $img);
+
+            if (File::exists($pathToFile)) {
+                $movie->addMedia($pathToFile)
+                    ->preservingOriginal()
+                    ->toMediaCollection('posters');
             }
         }
     }

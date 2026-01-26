@@ -22,10 +22,10 @@ class CinemaController extends Controller
                 // Intentamos buscar por título
                 $q->where('title', 'LIKE', "%{$search}%")
 
-                // Si no encontramos un título buscamos por género
-                ->orWhereHas('genre', function ($qGenre) use ($search) {
-                    $qGenre->where('name', 'LIKE', "%{$search}%");
-                });
+                    // Si no encontramos un título buscamos por género
+                    ->orWhereHas('genre', function ($qGenre) use ($search) {
+                        $qGenre->where('name', 'LIKE', "%{$search}%");
+                    });
             });
         }
 
@@ -35,5 +35,11 @@ class CinemaController extends Controller
         $promotions = Promotion::all();
 
         return view('cinema', compact('movies', 'promotions'));
+    }
+
+    public function show(Movie $movie)
+    {
+        $movie->load('genre');
+        return view('show', compact('movie'));
     }
 }

@@ -1,6 +1,37 @@
-<form action="{{ route('genres.update', $genre->id) }}" method="POST">
-    @csrf
-    @method('PUT') <label for="">Nombre del género</label>
-    <input type="text" name="name" id="" value="{{ $genre->name }}">
-    <button type="submit">Actualizar</button>
-</form>
+@extends('layouts.index')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark border-secondary shadow-lg">
+                <div class="card-header border-secondary bg-black text-white">
+                    <h4 class="mb-0"><i class="fas fa-edit text-warning"></i> Editar Género</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('genres.update', $genre->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="mb-4">
+                            <label for="name" class="form-label text-white-50">Nombre del Género</label>
+                            <input type="text" name="name" id="name" 
+                                   class="form-control bg-dark text-white border-secondary" 
+                                   value="{{ $genre->name }}" required>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('genres.index') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

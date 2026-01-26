@@ -9,6 +9,8 @@ use App\Http\Controllers\CinemaController;
 
 Route::get('/', 'CinemaController@index')->name('cinema');
 
+Route::get('show/{movie}', 'CinemaController@show')->name('show');
+
 Route::middleware('auth')->group(function () {
     Route::resource('genres', GenreController::class);
 

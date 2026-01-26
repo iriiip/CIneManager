@@ -1,22 +1,55 @@
-<form action="{{ route('promotions.update', $promotion->id) }}" method="POST">
-    @csrf
-    @method('PUT') <label for="title">Título del Anuncio:</label><br>
-    <input type="text" name="title" id="title" value="{{ old('title', $promotion->title) }}" required>
-    <br><br>
+@extends('layouts.index')
 
-    <label for="message">Mensaje / Contenido:</label><br>
-    <textarea name="message" id="message" rows="4" cols="50" required>{{ old('message', $promotion->message) }}</textarea>
-    <br><br>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card bg-dark border-secondary shadow-lg">
+                <div class="card-header border-secondary bg-black text-white">
+                    <h4 class="mb-0"><i class="fas fa-edit text-warning"></i> Editar Promoción</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('promotions.update', $promotion->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-    <label for="start_date">Fecha de Inicio:</label><br>
-    <input type="datetime-local" name="start_date" id="start_date"
-        value="{{ $promotion->start_date }}" required>
-    <br><br>
+                        <div class="mb-3">
+                            <label class="form-label text-white-50">Título del Anuncio</label>
+                            <input type="text" name="title" class="form-control bg-dark text-white border-secondary" 
+                                   value="{{ old('title', $promotion->title) }}" required>
+                        </div>
 
-    <label for="end_date">Fecha de Fin:</label><br>
-    <input type="datetime-local" name="end_date" id="end_date"
-        value="{{ $promotion->end_date }}" required>
-    <br><br>
+                        <div class="mb-3">
+                            <label class="form-label text-white-50">Mensaje / Contenido</label>
+                            <textarea name="message" rows="3" class="form-control bg-dark text-white border-secondary" 
+                                      required>{{ old('message', $promotion->message) }}</textarea>
+                        </div>
 
-    <button type="submit">Actualizar Promoción</button>
-</form>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-white-50">Fecha de Inicio</label>
+                                <input type="datetime-local" name="start_date" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       value="{{ $promotion->start_date }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-white-50">Fecha de Fin</label>
+                                <input type="datetime-local" name="end_date" 
+                                       class="form-control bg-dark text-white border-secondary" 
+                                       value="{{ $promotion->end_date }}" required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ route('promotions.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-sync-alt me-1"></i> Actualizar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
